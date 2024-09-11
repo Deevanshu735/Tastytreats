@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  /* font-family: "Dancing Script", cursive; */
+  font-family: "Montserrat", sans-serif !important;
+}
+
+
+.custom-input:focus{
+  border: solid rgb(228, 224, 224) 2px !important;
+  outline: none !important;
+  box-shadow:2px 2px  #F5F2F2 !important;
+ 
+  
+}
+.custom-input{
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.checkbox-form input[type="checkbox"] {
+  appearance: none; /* Removes default styling */
+  -webkit-appearance: none; /* Removes default styling in Safari */
+  -moz-appearance: none; /* Removes default styling in Firefox */
+  width: 20px;
+  height: 20px;
+  border: 2px solid red; /* Border color */
+  border-radius: 3px; /* Rounded corners */
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  background-color: white; /* Unchecked background color */
+}
+
+.checkbox-form input[type="checkbox"]:checked {
+  background-color: red; /* Checked background color */
+  border-color: red; /* Ensure border matches */
+}
+
+.checkbox-form input[type="checkbox"]:checked::before {
+/* Unicode character for checkmark */
+  position: absolute;
+  top: 0;
+  left: 4px;
+  font-size: 16px;
+  color: white; /* Checkmark color */
+}
+
+.register-card:hover{
+background-color: white !important;
+}
+

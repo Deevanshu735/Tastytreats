@@ -1,0 +1,38 @@
+.menu-image {
+    border-radius: 50%;
+    object-fit: cover;
+    max-height: 200px;
+    max-width: 200px;
+  }
+  
+  .shake-image {
+    object-fit: contain;
+    height: 350px; /* Custom height for shake images */
+    width: 300;
+  }
+  
+  .food-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .menu-btn {
+    margin: 5px;
+    width: 45%;
+  }
+  
+  @media (max-width: 768px) {
+    .menu-card {
+      width: 18rem;
+      height: 22rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .menu-card {
+      width: 16rem;
+      height: 20rem;
+    }
+  }
+  

@@ -1,0 +1,37 @@
+.logo-animation{
+border-radius: 50% !important;
+    animation: moveLogo 40s infinite linear;
+}
+@keyframes moveLogo {
+    100%{
+transform: rotateZ(360deg)
+    }
+}
+@media (max-width:500px) {
+  
+  
+}
+
+body {
+    margin: 0;
+    /* font-family: "Dancing Script", cursive; */
+    font-family: "Montserrat", sans-serif !important;
+  }
+  .cursive-font{
+    font-family: "Dancing Script", cursive;
+  }
+  .btn-hvr:hover{
+    color: white !important;
+  }
+  .btn-hvr2:hover{
+    color: white !important;
+    background: #DC3545 !important;
+  }
+  
+  @media (max-width:750px){
+    .homep{
+      margin:1rem !important;
+      padding:0rem 3rem !important;
+    justify-content: center !important;
+    }
+  }

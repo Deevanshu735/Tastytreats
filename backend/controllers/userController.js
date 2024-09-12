@@ -47,13 +47,14 @@ exports.register = async (req, res) => {
     console.log(`id is ${id}`);
 
     otpStore[id] = { otp, name, email, phone, password, avatar }; // Save user details with OTP
-    console.log(`OTPStore: ${otpStore}`);
+    console.log(`OTPStore:`, otpStore);
     console.log(`OTPStore[id]: ${otpStore[id]}`);
     setTimeout(() => {
       delete otpStore[id]; // Delete OTP after 10 minutes
     }, 10 * 60 * 1000);
 
     // Return OTP token to frontend to use for verification
+
     return res
       .status(200)
       .json({ status: true, message: "OTP sent successfully", token: id });
@@ -65,15 +66,16 @@ exports.register = async (req, res) => {
 };
 
 exports.verifyOTP = async (req, res) => {
+  console.log("verify otp runs successfully");
   const { token, otp } = req.body;
-
+  // console.log('token and otp',token,otp)
   // Debugging: log token and otpStore
   console.log("Received token:", token);
   // console.log("Received otp:", otp);
-  // console.log("otpStore:", otpStore);
-
-  const storedData = otpStore;
-  console.log("Stored Data: ", storedData);
+  console.log("otp:", otp);
+  console.log("Stored Data: ", otpStore);
+  console.log(`OTPStore[token]:`, otpStore[`${token}`]);
+  const storedData = otpStore[token];
 
   if (!storedData) {
     console.log("Invalid OTP - storedData not found");
@@ -166,6 +168,8 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.payment = async (req, res) => {
+  const { totalPrice } = req.body;
+  console.log(totalPrice);
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -174,16 +178,16 @@ exports.payment = async (req, res) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: "Sampann",
+              name: "Tastytreats",
             },
-            unit_amount: 20220,
+            unit_amount: totalPrice,
           },
           quantity: 1,
         },
       ],
       mode: "payment",
-      success_url: "http://192.168.3.240:3000",
-      cancel_url: "http://192.168.3.240:3000",
+      success_url: "http://localhost:3000",
+      cancel_url: "http://localhost:3000",
     });
     res.redirect(session.url);
   } catch (error) {

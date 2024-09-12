@@ -11,6 +11,7 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
+import axios from "axios";
 
 const cardStyle = {
   margin: "20px 0px",
@@ -90,7 +91,17 @@ const MenuItems = ({ selectedMenu }) => {
     (total, item) => total + item.foodPrice * item.quantity,
     0
   );
+const handlePayment= async()=>{
+try{
+const response = await axios.post('/api/users/payment',{
+totalPrice
+})
+console.log(response)
 
+}catch(err){
+  console.error(err);
+}
+}
   return (
     <Container>
       <Row xs={1} sm={2} md={3} className="d-flex justify-content-around">
@@ -218,7 +229,7 @@ const MenuItems = ({ selectedMenu }) => {
             Close
           </Button>
           {cartItems.length > 0 && (
-            <Button variant="danger" onClick={handleClose}>
+            <Button variant="danger" onClick={handlePayment}>
               Confirm Order
             </Button>
           )}

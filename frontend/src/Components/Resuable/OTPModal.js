@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function OTPModal({ show, setShow, token, saveUser }) {
+function OTPModal({ show, setShow, token }) {
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
-  console.log(token);
+  const navigate = useNavigate();
+  console.log("token is ", token);
 
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
@@ -15,10 +17,11 @@ function OTPModal({ show, setShow, token, saveUser }) {
         otp: otp,
       });
       console.log(response);
-      await saveUser();
       setShow(false);
+      navigate("/");
     } catch (err) {
       console.log(err.response);
+      setOtpError(err.response.data.message);
     }
   };
 
@@ -31,6 +34,7 @@ function OTPModal({ show, setShow, token, saveUser }) {
         <Form onSubmit={handleOtpSubmit}>
           <Form.Group controlId="formOtp">
             <Form.Control
+              className="custom-input"
               type="text"
               placeholder="Enter OTP"
               value={otp}

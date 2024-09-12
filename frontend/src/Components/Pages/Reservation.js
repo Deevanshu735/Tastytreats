@@ -123,6 +123,8 @@ export default function Reservation() {
       setPeopleError("Number of Guests is required");
     } else if (Number(value) < 1) {
       setPeopleError("Number of Guests should be a positive integer");
+    } else if (Number(value) > 20) {
+      setPeopleError("Number of Guests should not exceed 20");
     } else {
       setPeopleError("");
     }

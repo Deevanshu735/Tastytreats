@@ -7,6 +7,7 @@ const userRoutes = require("./routes/userRoutes.js");
 const reservationRoutes = require("./routes/reservationRoutes.js");
 const foodCategoryRoutes = require("./routes/foodCategoryRoutes.js");
 const menuRoutes = require("./routes/menuRoutes.js");
+const paymentRoutes = require("./routes/paymentsRoutes.js")
 const cloudinary = require("cloudinary");
 const session = require("express-session");
 
@@ -39,6 +40,8 @@ app.use("/api/reservations", reservationRoutes);
 
 app.use("/api/foods", foodCategoryRoutes);
 app.use("/api/foods", menuRoutes);
+
+app.use("/api/payments", paymentRoutes);
 {
   try {
     app.listen(5000, () => {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import OTPModal from "../Resuable/OTPModal";
+import { BACKEND_BASE_URL } from "../../constant";
 
 function RegisterForm() {
   const [name, setName] = useState("");
@@ -104,7 +105,7 @@ function RegisterForm() {
       formData.append("avatar", avatar);
 
       // Send OTP request
-      const response = await axios.post(`/api/users/register`, formData, {
+      const response = await axios.post(`${BACKEND_BASE_URL}/api/users/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

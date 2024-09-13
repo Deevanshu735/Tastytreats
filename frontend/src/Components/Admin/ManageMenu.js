@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AdminMenuData from "./AdminMenudata";
 import AddMenu from "./AddMenu"; // Assuming this is the component for adding items
+import { BACKEND_BASE_URL } from "../../constant";
 
 export default function Menu() {
   const [menu, setMenu] = useState([]);
@@ -28,7 +29,9 @@ export default function Menu() {
   useEffect(() => {
     const getFoodCategory = async () => {
       try {
-        const response = await axios.get("/api/foods/getfoodcategory");
+        const response = await axios.get(
+          `${BACKEND_BASE_URL}/api/foods/getfoodcategory`
+        );
         setMenu(response.data.categories);
         if (response.data.data.length > 0) {
           setSelectedMenu(1);
@@ -43,7 +46,7 @@ export default function Menu() {
   useEffect(() => {
     const getFoodItems = async () => {
       try {
-        const response = await axios.get("/api/foods/menu");
+        const response = await axios.get(`${BACKEND_BASE_URL}/api/foods/menu`);
         setMenuData(response.data);
       } catch (error) {
         setMenuDataError(error);

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { BACKEND_BASE_URL } from "../../constant";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -67,7 +68,7 @@ function LoginForm() {
 
     try {
       const loginData = { email, password };
-      const res = await axios.post("/api/users/login", loginData);
+      const res = await axios.post(`${BACKEND_BASE_URL}/api/users/login`, loginData);
 
       if (res.status === 200) {
         const { user } = res.data; // Extract user from response

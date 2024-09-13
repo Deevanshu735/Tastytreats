@@ -7,6 +7,7 @@ import Footer from "../Resuable/Footer";
 import axios from "axios";
 import { Navigation } from "../Resuable/Navigation";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../../constant";
 
 export default function Reservation() {
   const navigate = useNavigate();
@@ -190,7 +191,7 @@ export default function Reservation() {
       };
 
       const res = await axios.post(
-        "/api/reservations/reserve",
+        `${BACKEND_BASE_URL}/api/reservations/reserve`,
         reservationData
       );
       console.log(res.data);

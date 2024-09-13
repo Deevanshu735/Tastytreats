@@ -12,6 +12,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 import axios from "axios";
+import { BACKEND_BASE_URL } from "../../constant";
 
 const cardStyle = {
   margin: "20px 0px",
@@ -91,17 +92,19 @@ const MenuItems = ({ selectedMenu }) => {
     (total, item) => total + item.foodPrice * item.quantity,
     0
   );
-const handlePayment= async()=>{
-try{
-const response = await axios.post('/api/users/payment',{
-totalPrice
-})
-console.log(response)
-
-}catch(err){
-  console.error(err);
-}
-}
+  const handlePayment = async () => {
+    try {
+      const amount = totalPrice;
+      const { data: key } = await axios.get(`${BACKEND_BASE_URL}/api/payments/getkey`);
+      const { data: order } = await axios.post(`${BACKEND_BASE_URL}/api/payments/payment`, {
+        amount,
+      });
+      console.log(key, order);
+      // console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <Container>
       <Row xs={1} sm={2} md={3} className="d-flex justify-content-around">

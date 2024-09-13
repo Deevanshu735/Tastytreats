@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Footer from "../Resuable/Footer";
 import MenuItems from "./MenuItems";
+import { BACKEND_BASE_URL } from "../../constant";
 
 export default function Menu() {
   const [menu, setMenu] = React.useState();
@@ -28,7 +29,7 @@ export default function Menu() {
     // setSelectedMenu
     const getFoodCategory = async () => {
       try {
-        const response = await axios.get("/api/foods/getfoodcategory");
+        const response = await axios.get(`${BACKEND_BASE_URL}/api/foods/getfoodcategory`);
         // console.log(response.data.categories);
         setMenu(response.data.categories);
         if (response.data.data.length > 0) {
@@ -44,7 +45,7 @@ export default function Menu() {
   useEffect(() => {
     const getFoodItems = async function () {
       try {
-        const response = await axios.get("/api/foods/menu");
+        const response = await axios.get(`${BACKEND_BASE_URL}/api/foods/menu`);
         console.log(response);
         setMenuData(response.data);
       } catch (error) {

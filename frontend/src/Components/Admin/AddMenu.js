@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import axios from "axios";
 import { Row, Col } from "react-bootstrap";
+import { BACKEND_BASE_URL } from "../../constant";
 
 function AddMenu() {
   const [foodName, setFoodName] = React.useState("");
@@ -44,7 +45,7 @@ function AddMenu() {
       formData.append("foodPrice", foodPrice);
       formData.append("foodCategory", foodCategory);
       formData.append("foodImage", foodImage);
-      const res = await axios.post("/api/foods/menu-add", formData, {
+      const res = await axios.post(`${BACKEND_BASE_URL}/api/foods/menu-add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

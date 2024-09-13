@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_BASE_URL } from "../../constant";
 
 function OTPModal({ show, setShow, token }) {
   const [otp, setOtp] = useState("");
@@ -12,7 +13,7 @@ function OTPModal({ show, setShow, token }) {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/users/verifyotp", {
+      const response = await axios.post(`${BACKEND_BASE_URL}/api/users/verifyotp`, {
         token: token,
         otp: otp,
       });

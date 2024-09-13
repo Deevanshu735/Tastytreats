@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Container, Row, Col, Button } from "react-bootstrap";
+import { BACKEND_BASE_URL } from "../../constant";
 
 export default function ReservationManage() {
   const [reservations, setReservations] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("/api/reservations/getreservations");
+      const response = await axios.get(`${BACKEND_BASE_URL}/api/reservations/getreservations`);
       setReservations(response.data.reservations);
     }
 

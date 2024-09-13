@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { Container, Table, Row, Col, Button } from "react-bootstrap";
+import { BACKEND_BASE_URL } from "../../constant";
 
 export default function AllUsers() {
   const [users, setUsers] = React.useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get("/api/users/all");
+      const response = await axios.get(`${BACKEND_BASE_URL}/api/users/all`);
       console.log(response.data.users);
       setUsers(response.data.users);
     }

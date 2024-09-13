@@ -4,10 +4,6 @@ const bcrypt = require("bcryptjs");
 const uploadOnCloudinary = require("../utils/cloudinary.js");
 const path = require("path");
 const crypto = require("crypto");
-const stripe = require("stripe")(
-  "sk_test_51PrC84Rpo9MfeTbXLz2sYNuH8zt1KM7SVE9UyPYTKBEoAnyT3MTukKyoQ6VCHMveykkWfWqvJYuMgqlCXbl0B3Uz00VXewiOGl"
-);
-const session = require("express-session");
 let otpStore = {};
 
 // Register User and send OTP
@@ -164,34 +160,5 @@ exports.getAllUsers = async (req, res) => {
     res.status(200).json({ users });
   } catch (error) {
     res.status(500).json({ message: "Failed to get Users", error });
-  }
-};
-
-exports.payment = async (req, res) => {
-  const { totalPrice } = req.body;
-  console.log(totalPrice);
-  try {
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price_data: {
-            currency: "usd",
-            product_data: {
-              name: "Tastytreats",
-            },
-            unit_amount: totalPrice,
-          },
-          quantity: 1,
-        },
-      ],
-      mode: "payment",
-      success_url: "http://localhost:3000",
-      cancel_url: "http://localhost:3000",
-    });
-    res.redirect(session.url);
-  } catch (error) {
-    console.error("Error creating checkout session:", error);
-    res.status(500).send("Internal Server Error");
   }
 };

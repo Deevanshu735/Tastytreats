@@ -8,7 +8,4 @@ router.post("/login", userController.login);
 router.get("/all", userController.getAllUsers);
 router.post("/verifyotp", userController.verifyOTP);
 
-router.post("/payment", userController.payment);
-router.get("/payment", userController.payment);
-
 module.exports = router;

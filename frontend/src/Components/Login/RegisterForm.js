@@ -3,6 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import OTPModal from "../Resuable/OTPModal";
 import { BACKEND_BASE_URL } from "../../constant";
+import { useDispatch } from "react-redux";
+import { login } from "../../slices/authSlice"; // Import login action from authSlice
 
 function RegisterForm() {
   const [name, setName] = useState("");
@@ -25,6 +27,8 @@ function RegisterForm() {
 
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otpToken, setOtpToken] = useState("");
+
+  const dispatch = useDispatch(); // Initialize Redux dispatch
 
   const handleName = (e) => {
     const value = e.target.value.trim();
@@ -90,13 +94,11 @@ function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form data
     if (!name || !email || !phone || !password || !confirmPassword || !avatar) {
       return;
     }
 
     try {
-      // Prepare form data to send to the backend
       const formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
@@ -104,20 +106,28 @@ function RegisterForm() {
       formData.append("password", password);
       formData.append("avatar", avatar);
 
-      // Send OTP request
-      const response = await axios.post(`${BACKEND_BASE_URL}/api/users/register`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `${BACKEND_BASE_URL}/api/users/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      // Set OTP token and show OTP modal
       setOtpToken(response.data.token);
       setShowOtpModal(true);
     } catch (error) {
       console.error("Error sending OTP", error);
       setEmailError("Failed to send OTP. Please check your email.");
     }
+  };
+
+  const handleOTPVerificationSuccess = async (userData) => {
+    // Once OTP is verified, dispatch the login action to update the state
+    dispatch(login(userData)); // Automatically log in the user after registration
+    setShowOtpModal(false);
   };
 
   return (
@@ -219,6 +229,7 @@ function RegisterForm() {
           show={showOtpModal}
           setShow={setShowOtpModal}
           token={otpToken}
+          onSuccess={handleOTPVerificationSuccess} // Pass on success handler
         />
       )}
     </>

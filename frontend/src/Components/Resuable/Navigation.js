@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Container, Nav, Navbar, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { Cart } from "react-bootstrap-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../slices/authSlice"; // Adjust the path to where your authSlice is located
 
 const styles = {
   navbar: {
@@ -55,7 +57,7 @@ const styles = {
 };
 
 const CartIcon = () => {
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = React.useState(0);
 
   return (
     <div
@@ -86,6 +88,13 @@ const CartIcon = () => {
 };
 
 export function Navigation() {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <Navbar expand="lg" style={styles.navbar}>
       <Container fluid>
@@ -116,20 +125,35 @@ export function Navigation() {
               Contact
             </Nav.Link>
 
-            <Button
-              className="btn-hvr2 "
-              as={Link}
-              to="/login"
-              style={styles.button}
-              variant="none"
-            >
-              Login/Register
-            </Button>
-            <Button style={styles.userButton}>
-              <FaRegUser style={styles.userIcon} />
-            </Button>
+            {isLoggedIn ? (
+              <div style={styles.buttonContainer}>
+                <Button
+                  className="btn-hvr2"
+                  style={styles.button}
+                  variant="none"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+                <Button style={styles.userButton}>
+                  <FaRegUser style={styles.userIcon} />
+                </Button>
+              </div>
+            ) : (
+              <Button
+                className="btn-hvr2"
+                as={Link}
+                to="/login"
+                style={styles.button}
+                variant="none"
+              >
+                Login/Register
+              </Button>
+            )}
 
-            <CartIcon />
+            <Button style={styles.userButton}>
+              <CartIcon />
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

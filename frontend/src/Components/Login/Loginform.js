@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { BACKEND_BASE_URL } from "../../constant";
+import { useDispatch } from "react-redux";
+import { login } from "../../slices/authSlice"; // Import login action from Redux slice
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -16,6 +18,7 @@ function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Initialize useDispatch hook for dispatching Redux actions
 
   function handleEmailChange(e) {
     const value = e.target.value;
@@ -32,7 +35,6 @@ function LoginForm() {
   function handlePasswordChange(e) {
     const value = e.target.value;
     setPassword(value);
-    // Trimmed value to check for leading or trailing spaces
     const trimmedValue = value.trim();
 
     if (trimmedValue.length < 8) {
@@ -55,7 +57,6 @@ function LoginForm() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Validation checks
     if (email === "") {
       setEmailError("Email cannot be empty");
     }
@@ -68,10 +69,14 @@ function LoginForm() {
 
     try {
       const loginData = { email, password };
-      const res = await axios.post(`${BACKEND_BASE_URL}/api/users/login`, loginData);
+      const res = await axios.post(
+        `${BACKEND_BASE_URL}/api/users/login`,
+        loginData
+      );
 
       if (res.status === 200) {
         const { user } = res.data; // Extract user from response
+        dispatch(login(user)); // Dispatch login action with user data
 
         alert(`Welcome back, ${user.name}`);
 

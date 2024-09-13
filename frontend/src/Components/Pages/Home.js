@@ -13,8 +13,8 @@ export default function Home() {
       <Container style={{ backgroundColor: "#f2f2f2" }} fluid>
         <Row lg={12}>
           <Col lg={6}>
-            <p className="mt-5 ms-5 pt-5 text-secondary cursive-font homep ">
-              <i className="speedy" style={{ fontSize: "10vh" }}>
+            <p className="mt-5 ms-5 pt-5 text-secondary cursive-font homep speedy ">
+              <i style={{ fontSize: "10vh" }}>
                 “Speedy Flavor"{" "}
                 <span className="text-danger">"Anytime, Anywhere"</span>
               </i>

@@ -245,10 +245,12 @@ import ReservationManage from "./ReservationManage";
 import AllUsers from "./AllUsers";
 import Order from "./Order";
 import AdminHome from "./AdminHome";
+// import { useSelector } from "react-redux";
 
 const Admin = () => {
-  const [activeSection, setActiveSection] = useState("home"); // Default active section
   const navigate = useNavigate();
+  // const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const [activeSection, setActiveSection] = useState("home");
 
   const renderContent = () => {
     switch (activeSection) {
@@ -270,92 +272,98 @@ const Admin = () => {
   };
 
   return (
-    <Container fluid>
-      {/* Navbar Row */}
-      <Row>
-        <Navbar style={{ background: "#F8F9FA" }} expand="lg">
-          <Navbar.Brand className="fs-1 mx-lg-5 mx-md-3 mx-sm-2 cursive-font text-danger">
-            Tasty Treats
-          </Navbar.Brand>
-          <Navbar.Brand className="fs-2 mx-auto text-danger">
-            Admin Dashboard
-          </Navbar.Brand>
-        </Navbar>
-      </Row>
+    <>
+      {/* {user.role === "admin" ? ( */}
+      <Container fluid>
+        {/* Navbar Row */}
+        <Row>
+          <Navbar style={{ background: "#F8F9FA" }} expand="lg">
+            <Navbar.Brand className="fs-1 mx-lg-5 mx-md-3 mx-sm-2 cursive-font text-danger">
+              Tasty Treats
+            </Navbar.Brand>
+            <Navbar.Brand className="fs-2 mx-auto text-danger">
+              Admin Dashboard
+            </Navbar.Brand>
+          </Navbar>
+        </Row>
 
-      <Row>
-        {/* Sidebar Navigation */}
-        <Col
-          xs={12}
-          sm={3}
-          md={2}
-          className="p-0"
-          style={{
-            height: "100vh",
-            backgroundColor: "rgb(245, 245, 245)",
-            minHeight: "100vh",
-          }}
-        >
-          <Nav className="flex-column mt-4 px-3">
-            <Nav.Link
-              className="text-danger"
-              onClick={() => setActiveSection("home")}
-            >
-              <IoHome style={{ marginRight: "0.5rem" }} /> Home
-            </Nav.Link>
+        <Row>
+          {/* Sidebar Navigation */}
+          <Col
+            xs={12}
+            sm={3}
+            md={2}
+            className="p-0"
+            style={{
+              height: "100vh",
+              backgroundColor: "rgb(245, 245, 245)",
+              minHeight: "100vh",
+            }}
+          >
+            <Nav className="flex-column mt-4 px-3">
+              <Nav.Link
+                className="text-danger"
+                onClick={() => setActiveSection("home")}
+              >
+                <IoHome style={{ marginRight: "0.5rem" }} /> Home
+              </Nav.Link>
 
-            <Nav.Link
-              className="text-danger"
-              onClick={() => setActiveSection("users")}
-            >
-              <FaListUl style={{ marginRight: "0.5rem" }} /> All Users
-            </Nav.Link>
+              <Nav.Link
+                className="text-danger"
+                onClick={() => setActiveSection("users")}
+              >
+                <FaListUl style={{ marginRight: "0.5rem" }} /> All Users
+              </Nav.Link>
 
-            <Nav.Link
-              className="text-danger"
-              onClick={() => setActiveSection("managemenu")}
-            >
-              <IoMdRestaurant style={{ marginRight: "0.5rem" }} />
-              Manage Menu
-            </Nav.Link>
+              <Nav.Link
+                className="text-danger"
+                onClick={() => setActiveSection("managemenu")}
+              >
+                <IoMdRestaurant style={{ marginRight: "0.5rem" }} />
+                Manage Menu
+              </Nav.Link>
 
-            <Nav.Link
-              className="text-danger"
-              onClick={() => setActiveSection("order")}
-            >
-              <FaShoppingCart style={{ marginRight: "0.5rem" }} />
-              Order
-            </Nav.Link>
+              <Nav.Link
+                className="text-danger"
+                onClick={() => setActiveSection("order")}
+              >
+                <FaShoppingCart style={{ marginRight: "0.5rem" }} />
+                Order
+              </Nav.Link>
 
-            <Nav.Link
-              className="text-danger"
-              onClick={() => setActiveSection("reservation")}
-            >
-              <IoCheckboxOutline style={{ marginRight: "0.5rem" }} />
-              Reservation
-            </Nav.Link>
+              <Nav.Link
+                className="text-danger"
+                onClick={() => setActiveSection("reservation")}
+              >
+                <IoCheckboxOutline style={{ marginRight: "0.5rem" }} />
+                Reservation
+              </Nav.Link>
 
-            <Nav.Link
-              className="text-danger"
-              onClick={() => setActiveSection("logout")}
-            >
-              <IoLogOut style={{ marginRight: "0.2rem" }} />
-              Logout
-            </Nav.Link>
-          </Nav>
-        </Col>
+              <Nav.Link
+                className="text-danger"
+                onClick={() => setActiveSection("logout")}
+              >
+                <IoLogOut style={{ marginRight: "0.2rem" }} />
+                Logout
+              </Nav.Link>
+            </Nav>
+          </Col>
 
-        {/* Main Content */}
-        <Col
-          xs={12}
-          sm={9}
-          md={10}
-          style={{ padding: "20px", overflowY: "hidden" }}
-        >
-          {renderContent()}
-        </Col>
-      </Row>
-    </Container>
+          {/* Main Content */}
+          <Col
+            xs={12}
+            sm={9}
+            md={10}
+            style={{ padding: "20px", overflowY: "hidden" }}
+          >
+            {renderContent()}
+          </Col>
+        </Row>
+      </Container>
+      {/* ) : (
+        navigate("/")
+      )} */}
+    </>
   );
 };
 

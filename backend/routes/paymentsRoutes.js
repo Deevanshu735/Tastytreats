@@ -3,5 +3,8 @@ const router = express.Router();
 
 const paymentsController = require("../controllers/paymentsController");
 
-router.post("/payment", paymentsController.payment);
-router.get("/getKey", paymentsController.payment);
+router.get("/getKey", paymentsController.getKey);
+router.post("/checkout", paymentsController.checkout);
+router.post("/paymentverification", paymentsController.paymentVerification);
+
+module.exports = router;

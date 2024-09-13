@@ -94,13 +94,38 @@ const MenuItems = ({ selectedMenu }) => {
   );
   const handlePayment = async () => {
     try {
-      const amount = totalPrice;
-      const { data: key } = await axios.get(`${BACKEND_BASE_URL}/api/payments/getkey`);
-      const { data: order } = await axios.post(`${BACKEND_BASE_URL}/api/payments/payment`, {
-        amount,
+      const {
+        data: { key },
+      } = await axios.get(`${BACKEND_BASE_URL}/api/payments/getkey`);
+      const {
+        data: { order },
+      } = await axios.post(`${BACKEND_BASE_URL}/api/payments/checkout`, {
+        totalPrice,
       });
       console.log(key, order);
-      // console.log(response);
+      const options = {
+        key: key,
+        amount: order.amount,
+        currency: "INR",
+        name: "Tasty Treats",
+        description: "Test Transaction for Tasty Treats",
+        image:
+          "https://res.cloudinary.com/dtcgg2i4a/image/upload/v1726238690/avatars/o2xngaqekntoqks9vnlb.png",
+        order_id: order.id,
+        callback_url: `${BACKEND_BASE_URL}/api/payments/paymentverification`,
+        prefill: {
+          name: "",
+          email: "youremail@example.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#DC3545",
+        },
+      };
+
+      const razor = new window.Razorpay(options);
+      // console.log(razor);
+      razor.open();
     } catch (err) {
       console.error(err);
     }
